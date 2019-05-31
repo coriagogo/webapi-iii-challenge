@@ -91,22 +91,23 @@ function validateUserId(req, res, next) {
 function validateUser(req, res, next) {
     // console.log(req.body);
     // if (JSON.stringify(req.body) === '{}' ) {
-    //     res.status(400).json({ message: 'Missing user data.' });
+    //     res.status(500).json({ message: 'Missing user data.' });
     // } else if (!req.body.name) {
     //     res.status(400).json({ message: 'Missing required name field.' });
     // } 
-    // next();
-
-    if (!req.body) {
-        res.status(400).json({ message: 'Missing user data.'});
+    // next();    
+    
+    if (!Object.keys(req.body).length) {
+        res.status(500).json({ message: 'Missing user data.'});
     } else if (!req.body.name) {
         res.status(400).json({ message: 'Missing required name field.'});        
-    }   
-    next();
+    } else {
+        next();
+    }
 };
 
 function validatePost(req, res, next) {
-    if (!req.body) {
+    if (!Object.keys(req.body).length) {
         res.status(400).json({ message: 'Missing post data.' });
     } else if (!req.body.text) {
         res.status(400).json({ message: 'Missing required text field.' });
